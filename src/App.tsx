@@ -1,24 +1,29 @@
 import React from 'react';
 import logo from './logo.svg';
+import { io } from "socket.io-client";
+// import {VideoFeed} from './video-feed/VideoFeed';
 import './App.css';
 
-function App() {
+export const App = () => {
+  const ws = new WebSocket('wss://127.0.0.1:8080');
+  const socket = io('wss://127.0.0.1:8080'); //'http://localhost:8080');
+  socket.on('connect', () => console.log('socket connected'));
+  // console.log('ready state', ws.readyState);
+
+  // ws.addEventListener('close', (ev: Event) => console.log('Connection closed', ev));
+
+  // ws.addEventListener('open', (ev: Event) => console.log('web socket open', ev));
+
+  // ws.addEventListener('message', (message: Event) => {
+  //   console.log('received: %s', message);
+  // });
+
+  // ws.addEventListener('error', (ev: Event) => console.log('error', ev))
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Dawn is the best software team.</p>
+      {/* <VideoFeed webSocket={ws}> */}
     </div>
   );
 }
