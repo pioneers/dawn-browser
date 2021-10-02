@@ -10,15 +10,15 @@ export const App = () => {
   socket.on('connect', () => console.log('socket connected'));
   // console.log('ready state', ws.readyState);
 
-  // ws.addEventListener('close', (ev: Event) => console.log('Connection closed', ev));
+  ws.addEventListener('close', (ev: Event) => console.log('Connection closed', ev));
 
-  // ws.addEventListener('open', (ev: Event) => console.log('web socket open', ev));
+  ws.addEventListener('open', (ev: Event) => console.log('web socket open', ev));
 
-  // ws.addEventListener('message', (message: Event) => {
-  //   console.log('received: %s', message);
-  // });
+  ws.addEventListener('message', (message: MessageEvent<string>) => {
+    console.log('received data: %s', message.data);
+  });
 
-  // ws.addEventListener('error', (ev: Event) => console.log('error', ev))
+  ws.addEventListener('error', (ev: Event) => console.log('error', ev));
 
   return (
     <div className="App">
