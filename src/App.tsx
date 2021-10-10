@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import { io } from "socket.io-client";
+import React, { useEffect } from 'react';
 // import {VideoFeed} from './video-feed/VideoFeed';
+import { useRuntimeConnection } from './hooks';
 import './App.css';
 
 export const App = () => {
-  const ws = new WebSocket('wss://127.0.0.1:8080');
-  const socket = io('wss://127.0.0.1:8080'); //'http://localhost:8080');
-  socket.on('connect', () => console.log('socket connected'));
-  // console.log('ready state', ws.readyState);
+  const runtimeConnection = useRuntimeConnection();
 
-  ws.addEventListener('close', (ev: Event) => console.log('Connection closed', ev));
+  useEffect(() => {
+    runtimeConnection.connect('127.0.0.1')
+  }, [runtimeConnection]);
 
-  ws.addEventListener('open', (ev: Event) => console.log('web socket open', ev));
+  // const ws = new WebSocket('ws://127.0.0.1:5000');
 
-  ws.addEventListener('message', (message: MessageEvent<string>) => {
-    console.log('received data: %s', message.data);
-  });
+  // ws.addEventListener('close', (ev: Event) => console.log('Connection closed', ev));
 
-  ws.addEventListener('error', (ev: Event) => console.log('error', ev));
+  // ws.onopen = ((ev: Event) => {
+  //   console.log('web socket open', ev);
+  //   ws.send(Buffer.from([1]));
+  //   setInterval(() => ws.send('testing'), 1000);
+  // });
+
+  // ws.addEventListener('message', (message: MessageEvent<string | Blob>) => {
+  //   console.log('received data: %s', message.data.toString());
+  // });
+
+  // ws.addEventListener('error', (ev: Event) => console.log('error', ev));
 
   return (
     <div className="App">
